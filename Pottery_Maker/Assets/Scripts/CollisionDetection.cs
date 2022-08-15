@@ -19,4 +19,6 @@
             else
                 Destroy(this);
         }
+
+        public int GetColIndex() => colIndex;
     }

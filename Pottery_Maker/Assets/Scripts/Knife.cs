@@ -38,6 +38,6 @@ public class Knife : MonoBehaviour
     {
         if (!other.gameObject.TryGetComponent(out CollisionDetection col)) return;
         col.HitCollider(damageAmount);
-        wood.CutWood(col.colIndex,damageAmount);
+        wood.CutWood(col.GetColIndex(),damageAmount);
     }
 }
