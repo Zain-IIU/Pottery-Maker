@@ -63,7 +63,8 @@ using UnityEngine;
         {
             if (other.gameObject.CompareTag("Obstacle"))
             {
-                other.collider.enabled = false;
+                if (!isPartOfStack) return;
+                other.transform.tag = "NoCollision";
                 StackManager.Instance.RemoveItem(this);
             }
         }

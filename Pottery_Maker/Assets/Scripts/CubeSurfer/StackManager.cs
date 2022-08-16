@@ -23,14 +23,18 @@ public class StackManager : MonoBehaviour
     {
         cubeToAdd.MakePartOfStack();
         cubeToAdd.transform.parent = player.GetStackPoint();
-        cubeToAdd.transform.DOLocalMove(Vector3.zero, .05f);
+        
         if (!_hasAddedFirst)
             _hasAddedFirst = true;
         else
+        {
+            cubeToAdd.transform.DOLocalMove(Vector3.zero, .05f);
             cubeToAdd.UpdateFollowTarget(cubes[cubes.Count-1].transform);
+        }
         
         cubes.Add(cubeToAdd);
-        player.GetCameraPoint().DOLocalMoveY(player.GetCameraPoint().localPosition.y + 1.08f, .04f);
+        player.GetCameraPoint().DOLocalMoveY(player.GetCameraPoint().localPosition.y + .5f, .04f);
+        
     }
 
     public void RemoveItem(StackCube cube)
@@ -40,11 +44,12 @@ public class StackManager : MonoBehaviour
         if (index == -1) return;
         
         cubes[index+1].UpdateFollowTarget(null);
-        cubes[index + 1].transform.DOLocalMove(Vector3.zero, .05f);
+        //cubes[index + 1].transform.DOLocalMove(Vector3.zero, .05f);
+        cubes[index+1].GetComponent<Rigidbody>().useGravity = true;
         var count = 0;
         for (var i = index; i >= 0; i--)
         {
-            player.GetCameraPoint().DOLocalMoveY(player.GetCameraPoint().localPosition.y - 1.08f, .04f);
+            player.GetCameraPoint().DOLocalMoveY(player.GetCameraPoint().localPosition.y - .5f, .04f);
             count++;
              cubes[i].transform.parent = null;
         }
